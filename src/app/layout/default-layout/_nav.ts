@@ -4,7 +4,7 @@ export const navItems: INavData[] = [
   {
     name: 'Sales',
     url: '/dashboard',
-    iconComponent: { name: 'cil-speedometer' },
+    iconComponent: { name: 'cil-money' },
   },
   {
     name: 'Production',
