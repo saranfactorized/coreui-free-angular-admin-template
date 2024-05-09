@@ -1,8 +1,13 @@
 import { DOCUMENT, NgStyle } from '@angular/common';
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import {  ReactiveFormsModule } from '@angular/forms';
+import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 import { ChartModule } from '@syncfusion/ej2-angular-charts';
-import {  ScatterSeriesService, LineSeriesService, DateTimeService, TrendlinesService} from '@syncfusion/ej2-angular-charts'
+import { PivotFieldListComponent, EnginePopulatedEventArgs, IDataOptions, FieldListService, PivotView, DisplayOption, PivotChartService, IDataSet, ToolbarService, ToolbarItems } from '@syncfusion/ej2-angular-pivotview';
+import { DropDownList } from '@syncfusion/ej2-angular-dropdowns';
+import { ChartSettings } from '@syncfusion/ej2-pivotview/src/pivotview/model/chartsettings';
+import { Browser, enableRipple, setStyleAttribute, prepend } from '@syncfusion/ej2-base';
+
+import { ScatterSeriesService, BarSeriesService, StackingBarSeriesService, LineSeriesService, DateTimeService, TrendlinesService} from '@syncfusion/ej2-angular-charts'
 import {
   AvatarComponent,
   ButtonDirective,
@@ -20,44 +25,141 @@ import {
   TableDirective,
   TextColorDirective
 } from '@coreui/angular';
-import { IconDirective } from '@coreui/icons-angular';
+import { PivotViewAllModule, PivotFieldListAllModule } from '@syncfusion/ej2-angular-pivotview';
 
+import { IconDirective } from '@coreui/icons-angular';
+import { stackData, pivotData } from './dashboard-charts-data';
 import { WidgetsBrandComponent } from '../widgets/widgets-brand/widgets-brand.component';
 import { WidgetsDropdownComponent } from '../widgets/widgets-dropdown/widgets-dropdown.component';
+enableRipple(false);
 
-let series1 : any[] =[];
-let yValue = [7.66, 8.03, 8.41, 8.97, 8.77, 8.20, 8.16, 7.89, 8.68, 9.48, 10.11, 11.36, 12.34, 12.60, 12.95,
-    13.91, 16.21, 17.50, 22.72, 28.14, 31.26, 31.39, 32.43, 35.52, 36.36,
-    41.33, 43.12, 45.00, 47.23, 48.62, 46.60, 45.28, 44.01, 45.17, 41.20, 43.41, 48.32, 45.65, 46.61, 53.34, 58.53];
-let point1; let i; let j = 0;
-for (i = 1973; i <= 2013; i++) {
-    point1 = { x: i, y: yValue[j] };
-    series1.push(point1); j++;
-}
+let data: IDataSet[] = pivotData;
 @Component({
   templateUrl: 'dashboard.component.html',
   styleUrls: ['dashboard.component.scss'],
   standalone: true,
-  providers: [ScatterSeriesService, LineSeriesService, DateTimeService, TrendlinesService],
-  imports: [WidgetsDropdownComponent, TextColorDirective, CardComponent, CardBodyComponent, RowComponent, ColComponent, ButtonDirective, IconDirective, ReactiveFormsModule, ButtonGroupComponent, FormCheckLabelDirective, NgStyle, CardFooterComponent, GutterDirective, ProgressBarDirective, ProgressComponent, WidgetsBrandComponent, CardHeaderComponent, TableDirective, AvatarComponent, ChartModule]
+  encapsulation: ViewEncapsulation.None,
+  providers: [
+    ScatterSeriesService,
+    LineSeriesService,
+    DateTimeService,
+    TrendlinesService,
+    BarSeriesService,
+    StackingBarSeriesService,
+    FieldListService,
+    PivotChartService,
+    ChartSettings,
+    ToolbarService     
+  ],
+  imports: 
+  [
+    WidgetsDropdownComponent,
+    TextColorDirective,
+    CardComponent,
+    CardBodyComponent,
+    RowComponent,
+    ColComponent,
+    ButtonDirective,
+    IconDirective, ReactiveFormsModule, 
+    ButtonGroupComponent, 
+    FormCheckLabelDirective, 
+    NgStyle, 
+    CardFooterComponent, 
+    GutterDirective, 
+    ProgressBarDirective, 
+    ProgressComponent, 
+    WidgetsBrandComponent, 
+    CardHeaderComponent, 
+    TableDirective, 
+    AvatarComponent, 
+    ChartModule, 
+    PivotViewAllModule, 
+    PivotFieldListAllModule
+  ]
 })
 export class DashboardComponent implements OnInit {
+  public dataSourceSettings?: IDataOptions;
+  public chartddl?: DropDownList;
+  public chartSettings?: ChartSettings;
+  public displayOption?: DisplayOption;
+  public toolbarOptions?: ToolbarItems[];
+
+  @ViewChild('pivotview')
+  public pivotObj?: PivotView;
   
-  public data: Object[] = series1;
+  @ViewChild('pivotfieldlist')
+  public fieldlistObj?: PivotFieldListComponent;
+
+  afterPopulate(arge: EnginePopulatedEventArgs): void {
+      if (this.fieldlistObj && this.pivotObj) {
+          this.fieldlistObj.updateView(this.pivotObj);
+      }
+  }
+  afterEnginePopulate(args: EnginePopulatedEventArgs): void {
+      if (this.fieldlistObj && this.pivotObj) {
+          this.fieldlistObj.update(this.pivotObj);
+      }
+  }
+  onLoad(): void {
+      if (Browser.isDevice) {
+          (this.fieldlistObj as PivotFieldListComponent).renderMode = 'Popup';
+          (this.fieldlistObj as PivotFieldListComponent).target = '.control-section';
+          (document.getElementById('PivotFieldList') as HTMLElement).removeAttribute('style');
+          setStyleAttribute(document.getElementById('PivotFieldList') as HTMLElement, {
+              'height': 0,
+              'float': 'left'
+          });
+      }
+  }
+
+  ondataBound(): void {
+      if (Browser.isDevice) {
+          prepend([document.getElementById('PivotFieldList') as HTMLElement], document.getElementById('PivotView') as HTMLElement);
+      }
+  }
+  public chartData: Object[] = [];
+  public tooltip?: Object;
+  public marker?: Object;
+  public legendSettings?: object;
   public primaryXAxis: Object = {
-      title: 'Months',
-      majorGridLines: { width : 0}
+    interval: 1,
+    lineStyle: { width: 0 },
   };
   public primaryYAxis: Object = {
-     title: 'Rupees against Dollars',
-     interval: 10, lineStyle: {width: 0}, majorTickLines: { width: 0 }
+    interval: 100,
+    lineStyle: { width: 0 },
   };
   public chartArea : Object = {
     border: { width : 0}
   };
 
-  public title: string = 'Historical Indian Rupee Rate (INR USD)';
+  public title: string = 'Last 6 Months Sales';
   ngOnInit(): void {
-  }
+    this.toolbarOptions = ['FieldList'] as ToolbarItems[];
+    this.chartData = stackData, 
+    pivotData;
+    this.tooltip = { enable: true };
 
+    this.chartSettings = {
+      title: 'Sales',
+      chartSeries: { type: 'StackingBar' },
+      palettes: ["#E94649", "#F6B53F", "#6FAAB0", "#C4C24A"],
+  } as ChartSettings;
+
+  this.displayOption = { view: 'Chart' } as DisplayOption;
+
+  this.dataSourceSettings = {
+      enableSorting: false,
+      rows: [{ name: 'Month' }],
+      columns: [{ name: 'Month' }, { name: 'Products' }],
+      valueSortSettings: { headerDelimiter: ' - ' },
+      dataSource: data,
+      expandAll: false,
+      allowLabelFilter: true,
+      allowValueFilter: true,
+      formatSettings: [{ name: "Amount", format: "C" }],
+      values: [{ name: "Amount", caption: "Sales Amount" }],
+      filters: []
+  };
+  }
 }
