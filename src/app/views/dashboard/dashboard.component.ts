@@ -6,34 +6,27 @@ import { PivotFieldListComponent, EnginePopulatedEventArgs, IDataOptions, FieldL
 import { DropDownList } from '@syncfusion/ej2-angular-dropdowns';
 import { ChartSettings } from '@syncfusion/ej2-pivotview/src/pivotview/model/chartsettings';
 import { Browser, enableRipple, setStyleAttribute, prepend } from '@syncfusion/ej2-base';
+import { DashboardLayoutModule } from '@syncfusion/ej2-angular-layouts'
 
-import { ScatterSeriesService, BarSeriesService, StackingBarSeriesService, LineSeriesService, DateTimeService, TrendlinesService} from '@syncfusion/ej2-angular-charts'
+import {  StackingBarSeriesService} from '@syncfusion/ej2-angular-charts'
 import {
-  AvatarComponent,
-  ButtonDirective,
   ButtonGroupComponent,
   CardBodyComponent,
   CardComponent,
   CardFooterComponent,
   CardHeaderComponent,
   ColComponent,
-  FormCheckLabelDirective,
   GutterDirective,
-  ProgressBarDirective,
-  ProgressComponent,
   RowComponent,
-  TableDirective,
-  TextColorDirective
 } from '@coreui/angular';
 import { PivotViewAllModule, PivotFieldListAllModule } from '@syncfusion/ej2-angular-pivotview';
 
 import { IconDirective } from '@coreui/icons-angular';
 import { stackData, pivotData } from './dashboard-charts-data';
-import { WidgetsBrandComponent } from '../widgets/widgets-brand/widgets-brand.component';
-import { WidgetsDropdownComponent } from '../widgets/widgets-dropdown/widgets-dropdown.component';
 enableRipple(false);
 
 let data: IDataSet[] = pivotData;
+let pcsData: IDataSet[] = pivotData;
 @Component({
   templateUrl: 'dashboard.component.html',
   styleUrls: ['dashboard.component.scss'],
@@ -60,42 +53,63 @@ let data: IDataSet[] = pivotData;
     CardHeaderComponent, 
     ChartModule, 
     PivotViewAllModule, 
-    PivotFieldListAllModule
+    PivotFieldListAllModule,
+    DashboardLayoutModule
   ]
 })
 export class DashboardComponent implements OnInit {
   public dataSourceSettings?: IDataOptions;
+  public pcsDataSourceSettings?: IDataOptions;
   public chartddl?: DropDownList;
   public chartSettings?: ChartSettings;
   public displayOption?: DisplayOption;
   public toolbarOptions?: ToolbarItems[];
+  public cellSpacing: number[] = [10, 10];
 
   @ViewChild('pivotview')
   public pivotObj?: PivotView;
+  public pcsPivotObj?: PivotView;
+  
   
   @ViewChild('pivotfieldlist')
+  public pcsFieldlistObj?: PivotFieldListComponent;
   public fieldlistObj?: PivotFieldListComponent;
 
   afterPopulate(arge: EnginePopulatedEventArgs): void {
-      if (this.fieldlistObj && this.pivotObj) {
-          this.fieldlistObj.updateView(this.pivotObj);
-      }
+    if (this.fieldlistObj && this.pivotObj) {
+      this.fieldlistObj.updateView(this.pivotObj);
+    }
+    if (this.pcsFieldlistObj && this.pcsPivotObj) {
+      this.pcsFieldlistObj.updateView(this.pcsPivotObj);
+    }
   }
   afterEnginePopulate(args: EnginePopulatedEventArgs): void {
-      if (this.fieldlistObj && this.pivotObj) {
-          this.fieldlistObj.update(this.pivotObj);
-      }
+    if (this.fieldlistObj && this.pivotObj) {
+      this.fieldlistObj.update(this.pivotObj);
+    }
+    if (this.pcsFieldlistObj && this.pcsPivotObj) {
+      this.pcsFieldlistObj.update(this.pcsPivotObj);
+    }
   }
   onLoad(): void {
-      if (Browser.isDevice) {
-          (this.fieldlistObj as PivotFieldListComponent).renderMode = 'Popup';
-          (this.fieldlistObj as PivotFieldListComponent).target = '.control-section';
-          (document.getElementById('PivotFieldList') as HTMLElement).removeAttribute('style');
-          setStyleAttribute(document.getElementById('PivotFieldList') as HTMLElement, {
-              'height': 0,
-              'float': 'left'
-          });
-      }
+    if (Browser.isDevice) {
+      (this.fieldlistObj as PivotFieldListComponent).renderMode = 'Popup';      
+      (this.fieldlistObj as PivotFieldListComponent).target = '.control-section';
+      (document.getElementById('PivotFieldList') as HTMLElement).removeAttribute('style');
+      setStyleAttribute(document.getElementById('PivotFieldList') as HTMLElement, {
+          'height': 0,
+          'float': 'left'
+      });
+
+      (this.pcsFieldlistObj as PivotFieldListComponent).renderMode = 'Popup';
+      (this.pcsFieldlistObj as PivotFieldListComponent).target = '.control-section';
+      (document.getElementById('PivotFieldList') as HTMLElement).removeAttribute('style');
+      setStyleAttribute(document.getElementById('PivotFieldList') as HTMLElement, {
+          'height': 0,
+          'float': 'left'
+      });
+
+    }
   }
 
   ondataBound(): void {
@@ -122,30 +136,43 @@ export class DashboardComponent implements OnInit {
   public title: string = 'Last 6 Months Sales';
   ngOnInit(): void {
     this.toolbarOptions = ['FieldList'] as ToolbarItems[];
-    this.chartData = stackData, 
-    pivotData;
+    this.chartData = stackData; 
+    //pivotData;
     this.tooltip = { enable: true };
 
     this.chartSettings = {
       title: 'Sales',
       chartSeries: { type: 'StackingBar' },
       palettes: ["#E94649", "#F6B53F", "#6FAAB0", "#C4C24A"],
-  } as ChartSettings;
+    } as ChartSettings;
 
-  this.displayOption = { view: 'Chart' } as DisplayOption;
+    this.displayOption = { view: 'Chart' } as DisplayOption;
 
-  this.dataSourceSettings = {
-      enableSorting: false,
+    this.dataSourceSettings = {
+        enableSorting: false,
+        rows: [{ name: 'Month' }],
+        columns: [{ name: 'Month' }, { name: 'Products' }],
+        valueSortSettings: { headerDelimiter: ' - ' },
+        dataSource: data,
+        expandAll: false,
+        allowLabelFilter: true,
+        allowValueFilter: true,
+        formatSettings: [{ name: "Amount", format: "C" }],
+        values: [{ name: "Amount", caption: "Sales Amount" }],
+        filters: []
+    };
+    this.pcsDataSourceSettings = {
+      enableSorting: true,
       rows: [{ name: 'Month' }],
       columns: [{ name: 'Month' }, { name: 'Products' }],
       valueSortSettings: { headerDelimiter: ' - ' },
-      dataSource: data,
+      dataSource: pcsData,
       expandAll: false,
       allowLabelFilter: true,
       allowValueFilter: true,
       formatSettings: [{ name: "Amount", format: "C" }],
       values: [{ name: "Amount", caption: "Sales Amount" }],
       filters: []
-  };
+    }
   }
 }
