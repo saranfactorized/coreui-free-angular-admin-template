@@ -1,0 +1,21 @@
+Sales
+    6 months Trend Chart [example quality -> Cost Savings Summary in Lakhs]
+    Pivot table - payment collection summary [Monthwise, customerwise, part no]
+        JSON :- Customer name, Customer Code, item Code, item name, payment date, paid amount, total amount, payment status(Pending/PArtly Paid/Paid)
+    Pivot Table - Supplier outstaning
+        JSON :- supplier name, supplier Code item Code, item name, payment date, paid amount, total amount, payment status  (Pending/PArtly Paid/Paid)
+    High Value prospects
+            
+Production Summary
+    Monthwise plan vs produce
+        JSON :- Order no, customer name, customer code, partno, planned, produced, delivered, rejection, planned rejection rate, Actual planned rejection rate, delivery due date
+    customerwise Production
+        JSON :- Order no, customer name, customer code, partno, planned, produced, delivered, rejection, planned rejection rate, Actual planned rejection rate, delivery due date
+    partwise production
+        JSON :- Order no, customer name, customer code, partno, planned, produced, delivered, rejection, planned rejection rate, Actual planned rejection rate, delivery due date
+
+Stores
+    Stock Report
+    Inventory turn over report
+
+Account Payable

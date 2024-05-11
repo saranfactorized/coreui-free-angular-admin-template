@@ -2,9 +2,9 @@
 <ejs-dashboardlayout id='defaultLayout' [columns]="12" #defaultLayout [cellSpacing]='cellSpacing'>
   <span id="close" class="e-template-icon e-clear-icon"></span>
   <div class="e-panel-container">
-    <div id="one" class="e-panel" data-header="Sales Trends" data-row="0" data-col="0" data-sizeX="6" data-sizeY="4">
+    <div id="one" class="e-panel" data-header="Sales Trends" data-row="0" data-col="0" data-sizeX="12" data-sizeY="4">
       <div class=" m-1 p-1">
-        <h4 class="card-title" id="traffic">Sales Trends</h4>
+        <h4 class="card-title" id="traffic">Last 6 Months Sales Trends</h4>
         <div class="small text-body-secondary">November 2023 To April 2024</div>
       </div>
       <div>
@@ -20,9 +20,9 @@
       </div>
     </div>
     
-    <div id="two" class="e-panel" data-header="Payment Collection" data-row="0" data-col="7" data-sizeX="6" data-sizeY="4">
+    <div id="two" class="e-panel" data-header="Payment Collection" data-row="1" data-col="0" data-sizeX="12" data-sizeY="4">
       <div class=" m-1 p-1">
-        <h4 class="card-title" id="traffic">Payment Collection</h4>
+        <h4 class="card-title" id="traffic">Customerwise Monthly Trend (L1)</h4>
       </div>
       <div>
         <ejs-pivotview #pivotview
@@ -32,6 +32,49 @@
           showFieldList='true'
           [dataSourceSettings]=pcsDataSourceSettings>
         </ejs-pivotview>
+      </div>
+    </div>
+    
+    <div id="two" class="e-panel" data-header="Payment Collection" data-row="2" data-col="0" data-sizeX="12" data-sizeY="4">
+      <div class=" m-1 p-1">
+        <h4 class="card-title" id="traffic">Partwise Monthly Trend(L2)</h4>
+      </div>
+      <div>
+        <ejs-pivotview #pivotview
+          id='pcsPivotView'
+          width='100%'
+          [toolbar]='toolbarOptions'
+          showFieldList='true'
+          [dataSourceSettings]=pcsDataSourceSettings>
+        </ejs-pivotview>
+      </div>
+    </div>
+    
+    <div id="three" class="e-panel" data-header="Payment Collection" data-row="3" data-col="0" data-sizeX="12" data-sizeY="4">
+      <div class=" m-1 p-1">
+        <h4 class="card-title" id="traffic">Customerwise Partnowise Delivery Trend (L3 QTY[Y])</h4> 
+      </div>
+      <div>
+        <ejs-pivotview #pivotview
+          id='pcsPivotView'
+          width='100%'
+          [toolbar]='toolbarOptions'
+          showFieldList='true'
+          [dataSourceSettings]=pcsDataSourceSettings>
+        </ejs-pivotview>
+      </div>
+    </div>
+    
+    <div id="four" class="e-panel" data-header="Payment Collection" data-row="0" data-col="0" data-sizeX="12" data-sizeY="5">     
+      <div>
+        <ejs-chart style='display:block'  align='center' id='chartcontainer' [title]='title' [tooltip]="tooltip" [primaryXAxis]='primaryXAxis' [primaryYAxis]='primaryYAxis'>
+          <e-series-collection>
+            <e-series type='Line'  xName="Month" yName="Amount" width=2  opacity=1 [dataSource]='Sales6MPlanData' [marker]='circleMarker' name="Target Amount"> </e-series>
+            <e-series type='Line' xName="Month" yName="Amount" width=2  opacity=1 [dataSource]='Sales6MOrderData' [marker]='triangleMarker'  name="Orders Amount"> </e-series>
+            <e-series type='Line' xName="Month" yName="Amount" width=2  opacity=1 [dataSource]='Sales6MInvoiceData' [marker]='diamondMarker'  name="Invoice Amount"> </e-series>
+            <e-series type='Line' xName="Month" yName="Amount" width=2  opacity=1 [dataSource]='Sales6MCollectionData' [marker]='rectangleMarker'  name="Collection Amount"> </e-series>
+          </e-series-collection>
+      </ejs-chart>
       </div>
     </div>
   </div>
