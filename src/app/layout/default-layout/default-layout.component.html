@@ -4,7 +4,6 @@
   class="d-print-none sidebar sidebar-fixed border-end"
   colorScheme="dark"
   id="sidebar1"
-  visible
 >
   <c-sidebar-header class="border-bottom">
     <c-sidebar-brand [routerLink]="[]"> <img src="https://factorized.io/assets/img/logo.png" alt="Factorized Logo" style="max-height: 40px;">
@@ -29,7 +28,7 @@
                       position="sticky"
                       sidebarId="sidebar1" />
   <!--app-body-->
-  <div class="body flex-grow-1">
+  <div class="body fluid flex-grow-1">
     <c-container breakpoint="lg" class="h-auto px-4">
       <router-outlet />
     </c-container>

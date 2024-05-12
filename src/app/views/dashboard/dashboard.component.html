@@ -2,24 +2,49 @@
 <ejs-dashboardlayout id='defaultLayout' [columns]="12" #defaultLayout [cellSpacing]='cellSpacing'>
   <span id="close" class="e-template-icon e-clear-icon"></span>
   <div class="e-panel-container">
-    <div id="one" class="e-panel" data-header="Sales Trends" data-row="0" data-col="0" data-sizeX="12" data-sizeY="4">
-      <div class=" m-1 p-1">
-        <h4 class="card-title" id="traffic">Last 6 Months Sales Trends</h4>
-        <div class="small text-body-secondary">November 2023 To April 2024</div>
-      </div>
-      <div>
+    <div id="two" style="m-3" class="e-panel" data-header="Sales Trends" data-row="1" data-col="0" data-sizeX="12" data-sizeY="5">     
+      <ejs-chart align='center' id='chartcontainer' [title]='title' [tooltip]="tooltip" [primaryXAxis]='primaryXAxis' [primaryYAxis]='primaryYAxis'>
+        <e-series-collection>
+          <e-series type='Line'  xName="Month" yName="Amount" width=2  opacity=1 [dataSource]='Sales6MPlanData' [marker]='circleMarker' name="Target Amount"> </e-series>
+          <e-series type='Line' xName="Month" yName="Amount" width=2  opacity=1 [dataSource]='Sales6MOrderData' [marker]='triangleMarker'  name="Orders Amount"> </e-series>
+          <e-series type='Line' xName="Month" yName="Amount" width=2  opacity=1 [dataSource]='Sales6MInvoiceData' [marker]='diamondMarker'  name="Invoice Amount"> </e-series>
+          <e-series type='Line' xName="Month" yName="Amount" width=2  opacity=1 [dataSource]='Sales6MCollectionData' [marker]='rectangleMarker'  name="Collection Amount"> </e-series>
+        </e-series-collection>
+      </ejs-chart>
+    </div>
+
+    <div id="one" class="e-panel" data-header="Sales Report" data-row="0" data-col="0" data-sizeX="12" data-sizeY="6">
+      <div>        
+          <!-- [chartSettings]='chartSettings' -->
         <ejs-pivotview #pivotview
           id='PivotView'
           width='100%'
-          [toolbar]='toolbarOptions'
-          [displayOption]='displayOption'
+          height="550"
+          enableFieldSearching='true'
           showFieldList='true'
           [dataSourceSettings]=dataSourceSettings
-          [chartSettings]='chartSettings'>
+          allowExcelExport='true'
+          allowConditionalFormatting='true'
+          allowNumberFormatting='true'
+          allowPdfExport='true'
+          showToolbar='true'
+          allowCalculatedField='true'
+          showFieldList='true'
+          [exportAllPages]='false'
+          maxNodeLimitInMemberEditor='50'
+          enableVirtualization='true'
+          allowDeferLayoutUpdate='true'
+          allowDrillThrough='true'
+          showGroupingBar='true'
+          allowGrouping='true'
+          enableValueSorting='true'
+          [toolbar]='toolbarOptions'
+        >
         </ejs-pivotview>
       </div>
     </div>
     
+<!--
     <div id="two" class="e-panel" data-header="Payment Collection" data-row="1" data-col="0" data-sizeX="12" data-sizeY="4">
       <div class=" m-1 p-1">
         <h4 class="card-title" id="traffic">Customerwise Monthly Trend (L1)</h4>
@@ -34,7 +59,6 @@
         </ejs-pivotview>
       </div>
     </div>
-    
     <div id="two" class="e-panel" data-header="Payment Collection" data-row="2" data-col="0" data-sizeX="12" data-sizeY="4">
       <div class=" m-1 p-1">
         <h4 class="card-title" id="traffic">Partwise Monthly Trend(L2)</h4>
@@ -63,19 +87,6 @@
           [dataSourceSettings]=pcsDataSourceSettings>
         </ejs-pivotview>
       </div>
-    </div>
-    
-    <div id="four" class="e-panel" data-header="Payment Collection" data-row="0" data-col="0" data-sizeX="12" data-sizeY="5">     
-      <div>
-        <ejs-chart style='display:block'  align='center' id='chartcontainer' [title]='title' [tooltip]="tooltip" [primaryXAxis]='primaryXAxis' [primaryYAxis]='primaryYAxis'>
-          <e-series-collection>
-            <e-series type='Line'  xName="Month" yName="Amount" width=2  opacity=1 [dataSource]='Sales6MPlanData' [marker]='circleMarker' name="Target Amount"> </e-series>
-            <e-series type='Line' xName="Month" yName="Amount" width=2  opacity=1 [dataSource]='Sales6MOrderData' [marker]='triangleMarker'  name="Orders Amount"> </e-series>
-            <e-series type='Line' xName="Month" yName="Amount" width=2  opacity=1 [dataSource]='Sales6MInvoiceData' [marker]='diamondMarker'  name="Invoice Amount"> </e-series>
-            <e-series type='Line' xName="Month" yName="Amount" width=2  opacity=1 [dataSource]='Sales6MCollectionData' [marker]='rectangleMarker'  name="Collection Amount"> </e-series>
-          </e-series-collection>
-      </ejs-chart>
-      </div>
-    </div>
+    </div>-->
   </div>
 </ejs-dashboardlayout>

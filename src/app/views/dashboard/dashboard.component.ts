@@ -6,7 +6,7 @@ import { DropDownList } from '@syncfusion/ej2-angular-dropdowns';
 import { ChartSettings } from '@syncfusion/ej2-pivotview/src/pivotview/model/chartsettings';
 import { Browser, enableRipple, setStyleAttribute, prepend } from '@syncfusion/ej2-base';
 import { DashboardLayoutModule } from '@syncfusion/ej2-angular-layouts'
-import { TooltipSettingsModel, BarSeriesService, ChartModule, DataLabelService, MultiLevelLabelService, SelectionService, CategoryService, StackingBarSeriesService, ColumnSeriesService, LineSeriesService,LegendService, TooltipService} from '@syncfusion/ej2-angular-charts'
+import { TooltipSettingsModel, ZoomService, BarSeriesService, ChartModule, DataLabelService, MultiLevelLabelService, SelectionService, CategoryService, StackingBarSeriesService, ColumnSeriesService, LineSeriesService,LegendService, TooltipService} from '@syncfusion/ej2-angular-charts'
 import {
   ButtonGroupComponent,
   CardBodyComponent,
@@ -19,11 +19,11 @@ import {
 } from '@coreui/angular';
 import { PivotViewAllModule, PivotFieldListAllModule } from '@syncfusion/ej2-angular-pivotview';
 import { IconDirective } from '@coreui/icons-angular';
-import { stackData, pivotData, 
+import { stackData, pivotData, SalesCustomerData,
   Sales6MPlanData,  Sales6MOrderData, Sales6MInvoiceData, Sales6MCollectionData } from './dashboard-charts-data';
 enableRipple(false);
 
-let data: IDataSet[] = pivotData;
+let data: IDataSet[] = SalesCustomerData;
 let pcsData: IDataSet[] = pivotData;
 @Component({
   templateUrl: 'dashboard.component.html',
@@ -36,6 +36,7 @@ let pcsData: IDataSet[] = pivotData;
     LineSeriesService,
     LegendService,
     StackingBarSeriesService,
+    ZoomService,
     FieldListService,
     PivotChartService,
     ChartSettings,
@@ -80,54 +81,10 @@ export class DashboardComponent implements OnInit {
 
   @ViewChild('pivotview')
   public pivotObj?: PivotView;
-  public pcsPivotObj?: PivotView;
   
   
   @ViewChild('pivotfieldlist')
-  public pcsFieldlistObj?: PivotFieldListComponent;
   public fieldlistObj?: PivotFieldListComponent;
-
-  afterPopulate(arge: EnginePopulatedEventArgs): void {
-    if (this.fieldlistObj && this.pivotObj) {
-      this.fieldlistObj.updateView(this.pivotObj);
-    }
-    if (this.pcsFieldlistObj && this.pcsPivotObj) {
-      this.pcsFieldlistObj.updateView(this.pcsPivotObj);
-    }
-  }
-  afterEnginePopulate(args: EnginePopulatedEventArgs): void {
-    if (this.fieldlistObj && this.pivotObj) {
-      this.fieldlistObj.update(this.pivotObj);
-    }
-    if (this.pcsFieldlistObj && this.pcsPivotObj) {
-      this.pcsFieldlistObj.update(this.pcsPivotObj);
-    }
-  }
-  onLoad(): void {
-    if (Browser.isDevice) {
-      (this.fieldlistObj as PivotFieldListComponent).renderMode = 'Popup';      
-      (this.fieldlistObj as PivotFieldListComponent).target = '.control-section';
-      (document.getElementById('PivotFieldList') as HTMLElement).removeAttribute('style');
-      setStyleAttribute(document.getElementById('PivotFieldList') as HTMLElement, {
-          'height': 0,
-          'float': 'left'
-      });
-
-      (this.pcsFieldlistObj as PivotFieldListComponent).renderMode = 'Popup';
-      (this.pcsFieldlistObj as PivotFieldListComponent).target = '.control-section';
-      (document.getElementById('PivotFieldList') as HTMLElement).removeAttribute('style');
-      setStyleAttribute(document.getElementById('PivotFieldList') as HTMLElement, {
-          'height': 0,
-          'float': 'left'
-      });
-    }
-  }
-
-  ondataBound(): void {
-    if (Browser.isDevice) {
-      prepend([document.getElementById('PivotFieldList') as HTMLElement], document.getElementById('PivotView') as HTMLElement);
-    }
-  }
   public chartData: Object[] = [];
   public tooltip?: TooltipSettingsModel;
   public marker?: Object;
@@ -138,6 +95,7 @@ export class DashboardComponent implements OnInit {
   public Sales6MPlanData: object= Sales6MPlanData;
   public primaryXAxis?: Object;
   public primaryYAxis?: Object;
+
   public chartArea : Object = {
     border: { width : 0}
   };
@@ -145,16 +103,57 @@ export class DashboardComponent implements OnInit {
       visible: true,
       enableHighlight : true
   }
+  public zoom?: Object;
   public width: string = Browser.isDevice ? '100%' : '75%';
-  public circleMarker: Object = { visible: true, height: 7, width: 7 , shape: 'Circle' , isFilled: true };
-  public triangleMarker: Object = { visible: true, height: 6, width: 6 , shape: 'Triangle' , isFilled: true };
-  public diamondMarker: Object = { visible: true, height: 7, width: 7 , shape: 'Diamond' , isFilled: true };
-  public rectangleMarker: Object = { visible: true, height: 5, width: 5 , shape: 'Rectangle' , isFilled: true };
-  public pentagonMarker: Object = { visible: true, height: 7, width: 7 , shape: 'Pentagon' , isFilled: true };
+  public circleMarker: Object = { visible: true, height: 7, width: 7 , shape: 'Circle' , isFilled: true, 
+        dataLabel: {
+            visible: true,
+            position: 'Outer',
+            margin: { top: 70 },
+            template: '<div>Rs ${point.y}</div>'
+        } 
+      };
+  public triangleMarker: Object = { visible: true, height: 6, width: 6 , shape: 'Triangle' , isFilled: true, 
+        dataLabel: {
+            visible: true,
+            position: 'Outer',
+            margin: { top: 70 },
+            template: '<div>Rs ${point.y}</div>'
+        } 
+      };
+  public diamondMarker: Object = { visible: true, height: 7, width: 7 , shape: 'Diamond' , isFilled: true, 
+        dataLabel: {
+            visible: true,
+            position: 'Outer',
+            margin: { top: 70 },
+            template: '<div>Rs ${point.y}</div>'
+        } 
+      };
+  public rectangleMarker: Object = { visible: true, height: 5, width: 5 , shape: 'Rectangle' , isFilled: true, 
+        dataLabel: {
+            visible: true,
+            position: 'Outer',
+            margin: { top: 70 },
+            template: '<div>Rs ${point.y}</div>'
+        } 
+      };
+  public pentagonMarker: Object = { visible: true, height: 7, width: 7 , shape: 'Pentagon' , isFilled: true, 
+        dataLabel: {
+            visible: true,
+            position: 'Outer',
+            margin: { top: 70 },
+            template: '<div>Rs ${point.y}</div>'
+        } 
+      };
   public title: string = 'Last 6 Months Sales';
   ngOnInit(): void {
-    this.toolbarOptions = ['FieldList'] as ToolbarItems[];
-    this.chartData = stackData; 
+    this.chartData = stackData;
+    
+    this.zoom = {
+      enableMouseWheelZooming: true,
+      enablePinchZooming: true,
+      enableSelectionZooming: true
+    };
     this.tooltip = { enable: true,
       template:
       '<div id="Tooltip"><table style="width:100%;  border: 1px solid black;" class="table-borderless">' +
@@ -184,31 +183,31 @@ export class DashboardComponent implements OnInit {
     };
     this.displayOption = { view: 'Chart' } as DisplayOption;
 
+    this.toolbarOptions = ['New', 'Save', 'SaveAs', 'Rename', 'Remove', 'Load',
+    'Grid', 'Chart', 'Export', 'SubTotal', 'GrandTotal', 'Formatting', 'FieldList'] as ToolbarItems[];
     this.dataSourceSettings = {
         enableSorting: false,
-        rows: [{ name: 'Month' }],
-        columns: [{ name: 'Month' }, { name: 'Products' }],
-        valueSortSettings: { headerDelimiter: ' - ' },
+        rows: [{ name: 'salesMonth' }, {name: "customerName"}],
+        columns: [
+          { name: 'salesMonth' },
+        ],
         dataSource: data,
-        expandAll: false,
+        expandAll: true,
         allowLabelFilter: true,
         allowValueFilter: true,
-        formatSettings: [{ name: "Amount", format: "C" }],
-        values: [{ name: "Amount", caption: "Sales Amount" }],
-        filters: []
+        formatSettings: [
+          { name: "partSaleOrderAmount", format: "C2", currency: 'INR', useGrouping: false },
+          { name: "totalSaleOrderAmount", format: "C2", currency: 'INR', useGrouping: false },
+          { name: "partInvoiceAmount", format: "C2", currency: 'INR', useGrouping: false },
+          { name: "partCollectionAmount", format: "C2", currency: 'INR', useGrouping: false }
+        ],
+        values: [
+          { name: "partSaleOrderAmount", caption: "Parts Sales Amount" },
+          { name: "totalSaleOrderAmount", caption: "Total Sales Order Amount" },
+          { name: "partInvoiceAmount", caption: "Parts Invoice Amount" },
+          { name: "partCollectionAmount", caption: "Parts Collection Amount" }
+        ],
+        filters: [{ name: 'customerName', caption: "customer"}]
     };
-    this.pcsDataSourceSettings = {
-      enableSorting: true,
-      rows: [{ name: 'Month' }],
-      columns: [{ name: 'Month' }, { name: 'Products' }],
-      valueSortSettings: { headerDelimiter: ' - ' },
-      dataSource: pcsData,
-      expandAll: false,
-      allowLabelFilter: true,
-      allowValueFilter: true,
-      formatSettings: [{ name: "Amount", format: "C" }],
-      values: [{ name: "Amount", caption: "Sales Amount" }],
-      filters: []
-    }
   }
 }
