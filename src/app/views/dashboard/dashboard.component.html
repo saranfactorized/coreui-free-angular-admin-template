@@ -1,49 +1,227 @@
 <!-- <app-widgets-dropdown /> -->
-<ejs-dashboardlayout id='defaultLayout' [columns]="12" #defaultLayout [cellSpacing]='cellSpacing'>
-  <span id="close" class="e-template-icon e-clear-icon"></span>
-  <div class="e-panel-container">
-    <div id="two" style="m-3" class="e-panel" data-header="Sales Trends" data-row="1" data-col="0" data-sizeX="12" data-sizeY="5">     
-      <ejs-chart align='center' id='chartcontainer' [title]='title' [tooltip]="tooltip" [primaryXAxis]='primaryXAxis' [primaryYAxis]='primaryYAxis'>
-        <e-series-collection>
-          <e-series type='Line'  xName="Month" yName="Amount" width=2  opacity=1 [dataSource]='Sales6MPlanData' [marker]='circleMarker' name="Target Amount"> </e-series>
-          <e-series type='Line' xName="Month" yName="Amount" width=2  opacity=1 [dataSource]='Sales6MOrderData' [marker]='triangleMarker'  name="Orders Amount"> </e-series>
-          <e-series type='Line' xName="Month" yName="Amount" width=2  opacity=1 [dataSource]='Sales6MInvoiceData' [marker]='diamondMarker'  name="Invoice Amount"> </e-series>
-          <e-series type='Line' xName="Month" yName="Amount" width=2  opacity=1 [dataSource]='Sales6MCollectionData' [marker]='rectangleMarker'  name="Collection Amount"> </e-series>
-        </e-series-collection>
-      </ejs-chart>
-    </div>
-
-    <div id="one" class="e-panel" data-header="Sales Report" data-row="0" data-col="0" data-sizeX="12" data-sizeY="6">
-      <div>        
-          <!-- [chartSettings]='chartSettings' -->
-        <ejs-pivotview #pivotview
-          id='PivotView'
-          width='100%'
-          height="550"
-          enableFieldSearching='true'
-          showFieldList='true'
-          [dataSourceSettings]=dataSourceSettings
-          allowExcelExport='true'
-          allowConditionalFormatting='true'
-          allowNumberFormatting='true'
-          allowPdfExport='true'
-          showToolbar='true'
-          allowCalculatedField='true'
-          showFieldList='true'
-          [exportAllPages]='false'
-          maxNodeLimitInMemberEditor='50'
-          enableVirtualization='true'
-          allowDeferLayoutUpdate='true'
-          allowDrillThrough='true'
-          showGroupingBar='true'
-          allowGrouping='true'
-          enableValueSorting='true'
-          [toolbar]='toolbarOptions'
-        >
-        </ejs-pivotview>
+<div class="container-fluid">
+  <div class="row my-4">
+    <div class="col-3">
+      <div class="card h-100">
+        <h6 class="card-header">Top 5 Orders May'2024</h6>
+        <div class="card-body">
+            <table class="table fs-6">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Customer Name</th>
+                  <th scope="col">Order Value</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th>1</th>
+                  <td>Hyundai</td>
+                  <td>10,00,000</td>
+                </tr>
+                <tr>
+                  <th>2</th>
+                  <td>Kia</td>
+                  <td>5,00,000</td>
+                </tr>
+                <tr>
+                  <th>3</th>
+                  <td>Tata</td>
+                  <td>3,00,000</td>
+                </tr>
+                <tr>
+                  <th>4</th>
+                  <td>Kia</td>
+                  <td>2,50,000</td>
+                </tr>
+                <tr>
+                  <th>5</th>
+                  <td>Benz</td>
+                  <td>1,00,000</td>
+                </tr>
+              </tbody>
+            </table>
+        </div>
       </div>
     </div>
-    
+    <div class="col-9">
+      <div class="card">
+        <h6 class="card-header">Last 6 Months Sales Trend</h6>
+        <div  style="width:100%; height:300px;">
+          <ejs-chart align="center" style="width:100%; height:100%; font-family: Arial, Helvetica, sans-serif;" class="fs-6" [width]="width" [title]='title' [tooltip]="tooltip" [primaryXAxis]='primaryXAxis' [primaryYAxis]='primaryYAxis'>
+            <e-series-collection>
+              <e-series style="width:100%;" type='Line' xName="Month" yName="Amount" width='2' opacity=1 [dataSource]='Sales6MPlanData' [marker]='circleMarker' name="Target Amount"> </e-series>
+              <e-series style="width:100%;" type='StackingLine' xName="Month" yName="Amount" width='2' dashArray='5' [dataSource]='Sales6MOrderData' [marker]='triangleMarker' fill="black"  name="Orders Amount"> </e-series>
+              <e-series style="width:100%;" type='Line' xName="Month" yName="Amount" width='2' opacity=1 [dataSource]='Sales6MInvoiceData' [marker]='rectangleMarker'  name="Invoice Amount"> </e-series>
+              <e-series style="width:100%;" type='StackingLine' xName="Month" yName="Amount" width='2' dashArray='4' [dataSource]='Sales6MCollectionData' [marker]='diamondMarker' fill="red" name="Collection Amount"> </e-series>
+            </e-series-collection>
+          </ejs-chart>
+        </div>
+      </div>
+    </div> 
+  </div>
+  <div class="row my-4">    
+    <div class="col-6">
+      <div class="card p-2">
+        <div class="card">
+          <h6 class="card-header">Customer Payment</h6>
+          <div class="card-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Customer Name</th>
+                    <th scope="col">Total Payment (₹)</th>
+                    <th scope="col">Paid (₹)</th>
+                    <th scope="col">Overdue (₹)</th>
+                    <th scope="col">Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th>1</th>
+                    <td>Hyundai</td>
+                    <td>10,00,000</td>
+                    <td>10,00,000</td>
+                    <td>0</td>
+                    <td><span class="badge rounded-pill bg-success">Paid</span></td>
+                  </tr>
+                  <tr>
+                    <th>2</th>
+                    <td>Kia</td>
+                    <td>5,00,000</td>
+                    <td>3,00,000</td>
+                    <td>2,00,000</td>
+                    <td><span class="badge rounded-pill bg-warning text-light">Pending</span></td>
+                  </tr>
+                  <tr>
+                    <th>3</th>
+                    <td>Tata</td>
+                    <td>3,00,000</td>
+                    <td>1,00,000</td>
+                    <td>2,00,000</td>
+                    <td><span class="badge rounded-pill bg-warning text-light">Pending</span></td>
+                  </tr>
+                  <tr>
+                    <th>4</th>
+                    <td>Kia</td>
+                    <td>2,50,000</td>
+                    <td>1,00,000</td>
+                    <td>1,50,000</td>
+                    <td><span class="badge rounded-pill bg-danger">Overdue</span></td>
+                  </tr>
+                  <tr>
+                    <th>5</th>
+                    <td>Benz</td>
+                    <td>1,00,000</td>
+                    <td>0</td>
+                    <td>1,00,000</td>
+                    <td><span class="badge rounded-pill bg-warning text-light">Pending</span></td>
+                  </tr>
+                </tbody>
+              </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-6">
+      <div class="card p-2">
+        <div class="card widget-flat">
+          <h6 class="card-header">Supplier Payment</h6>
+          <div class="card-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Supplier Name</th>
+                    <th scope="col">Total Payment (₹)</th>
+                    <th scope="col">Paid (₹)</th>
+                    <th scope="col">Outstanding (₹)</th>
+                    <th scope="col">Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th>1</th>
+                    <td>ABC LTD</td>
+                    <td>10,00,000</td>
+                    <td>10,00,000</td>
+                    <td>0</td>
+                    <td><span class="badge rounded-pill bg-success">Paid</span></td>
+                  </tr>
+                  <tr>
+                    <th>2</th>
+                    <td>Camel</td>
+                    <td>5,00,000</td>
+                    <td>1,00,000</td>
+                    <td>4,00,000</td>
+                    <td><span class="badge rounded-pill bg-warning text-light">Pending</span></td>
+                  </tr>
+                  <tr>
+                    <th>3</th>
+                    <td>TNPL LTD</td>
+                    <td>3,00,000</td>
+                    <td>80,000</td>
+                    <td>2,20,000</td>
+                    <td><span class="badge rounded-pill bg-warning text-light">Pending</span></td>
+                  </tr>
+                  <tr>
+                    <th>4</th>
+                    <td>Ajay Industries</td>
+                    <td>3,50,000</td>
+                    <td>1,00,000</td>
+                    <td>2,50,000</td>
+                    <td><span class="badge rounded-pill bg-warning text-light">Pending</span></td>
+                  </tr>
+                  <tr>
+                    <th>5</th>
+                    <td>Ganesh Engineering</td>
+                    <td>1,00,000</td>
+                    <td>1,00,000</td>
+                    <td>0</td>
+                    <td><span class="badge rounded-pill bg-success">Paid</span></td>
+                  </tr>
+                </tbody>
+              </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="row my-4">
+    <div class="col-12">
+      <div class="card">        
+        <h6 class="card-header">Sales Summary</h6>
+        <ejs-pivotview #pivotview
+        id='PivotView'
+        width='100%'
+        height="550"
+        enableFieldSearching='true'
+        showFieldList='true'
+        [dataSourceSettings]=dataSourceSettings
+        allowExcelExport='true'
+        allowConditionalFormatting='true'
+        allowNumberFormatting='true'
+        allowPdfExport='true'
+        showToolbar='true'
+        showFieldList='true'
+        [exportAllPages]='false'
+        maxNodeLimitInMemberEditor='50'
+        enableVirtualization='true'
+        allowDeferLayoutUpdate='true'
+        allowDrillThrough='true'
+        showGroupingBar='true'
+        allowGrouping='true'
+        enableValueSorting='true'
+        [toolbar]='toolbarOptions'
+        allowNumberFormating='true'
+        (numberFormatting)='numberFormatting($event)'
+      >
+      </ejs-pivotview>
+      </div>
+    </div>
+  </div>
 <!--
     <div id="two" class="e-panel" data-header="Payment Collection" data-row="1" data-col="0" data-sizeX="12" data-sizeY="4">
       <div class=" m-1 p-1">
@@ -88,5 +266,4 @@
         </ejs-pivotview>
       </div>
     </div>-->
-  </div>
-</ejs-dashboardlayout>
+</div>

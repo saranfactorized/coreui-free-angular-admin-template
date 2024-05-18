@@ -46,3 +46,8 @@
       display: flex;
     }
 }
+
+.header > .container-fluid, .header > .container-sm, .header > .container-md, .header > .container-lg, .header > .container-xl, .header > .container-xxl, .sidebar-header {
+  min-height: calc(3rem + 1px);
+}
+

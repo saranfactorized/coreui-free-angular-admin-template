@@ -6,6 +6,8 @@
 // custom tweaks for scrollbar styling (wip)
 @import "scrollbar";
 
+@import '../../node_modules/@syncfusion/ej2-bootstrap-theme/styles/bootstrap.css';
+
  // custom calendar today cell color
 .calendar-cell.today {
   --cui-calendar-cell-today-color: var(--cui-info) !important;
@@ -14,4 +16,56 @@
 // custom select week cursor pointer
 .select-week .calendar-row.current {
   cursor: pointer;
+}
+.card-body {
+  padding: .05rem .5rem !important;
+}
+
+.table {
+  margin-bottom: .05rem !important;
+  margin-top: .05rem !important;
+}
+.table > :not(caption) > * > * {
+  padding: 0.3rem .3rem ;
+  font-size: 12px;
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+}
+
+e-headertext .e-pivotview .e-rowcell .e-cellvalue {
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 12px !important;
+}
+.badge {
+  --cui-badge-font-size:.85em !important;
+}
+
+.label {
+  display: inline;
+  padding: .2em .6em .3em;
+  font-size: 75%;
+  font-weight: 700;
+  line-height: 1;
+  color: #fff;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: .25em;
+}
+.label-danger, .badge-danger {
+  background-color: #ed5565;
+  color: #ffffff;
+}
+
+.label-warning, .badge-warning {
+  background-color: #f8ac59;
+  color: #ffffff;
+}
+
+.label-success, .badge-success {
+  background-color: #1c84c6;
+  color: #ffffff;
+}
+
+.bg-warning {
+  color: #5F1E02 !important;
 }

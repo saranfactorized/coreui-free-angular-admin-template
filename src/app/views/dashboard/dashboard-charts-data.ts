@@ -11,39 +11,39 @@ export class DashboardChartsData {
 
 // 11-05-2024 Start sales 6 month Trend line chart
 export let Sales6MPlanData: Object[] = [
-  { Month: 'Nov', Amount: 100000 },
-  { Month: 'Dec', Amount: 150000 },
-  { Month: 'Jan', Amount: 150000 },
-  { Month: 'Feb', Amount: 250000 },
-  { Month: 'Mar', Amount: 200000 },
-  { Month: 'April', Amount: 350000 }
+  { Month: 'Nov', Amount: 10},
+  { Month: 'Dec', Amount: 15},
+  { Month: 'Jan', Amount: 15},
+  { Month: 'Feb', Amount: 25},
+  { Month: 'Mar', Amount: 20},
+  { Month: 'April', Amount: 35}
 ];
 
 export let Sales6MOrderData: Object[] = [
-  { Month: 'Nov', Amount: 70000 },
-  { Month: 'Dec', Amount: 100000 },
-  { Month: 'Jan', Amount: 130000 },
-  { Month: 'Feb', Amount: 200000 },
-  { Month: 'Mar', Amount: 150000 },
-  { Month: 'April', Amount: 250000 }
+  { Month: 'Nov', Amount: 7},
+  { Month: 'Dec', Amount: 10},
+  { Month: 'Jan', Amount: 13},
+  { Month: 'Feb', Amount: 20},
+  { Month: 'Mar', Amount: 15},
+  { Month: 'April', Amount: 25}
 ];
 
 export let Sales6MInvoiceData: Object[] = [
-  { Month: 'Nov', Amount: 50000 },
-  { Month: 'Dec', Amount: 80000 },
-  { Month: 'Jan', Amount: 100000 },
-  { Month: 'Feb', Amount: 150000 },
-  { Month: 'Mar', Amount: 100000 },
-  { Month: 'April', Amount: 150000 }
+  { Month: 'Nov', Amount: 5},
+  { Month: 'Dec', Amount: 8},
+  { Month: 'Jan', Amount: 10},
+  { Month: 'Feb', Amount: 15},
+  { Month: 'Mar', Amount: 10},
+  { Month: 'April', Amount: 15}
 ];
 
 export let Sales6MCollectionData: Object[] = [
-  { Month: 'Nov', Amount: 40000 },
-  { Month: 'Dec', Amount: 70000 },
-  { Month: 'Jan', Amount: 80000 },
-  { Month: 'Feb', Amount: 100000 },
-  { Month: 'Mar', Amount: 90000 },
-  { Month: 'April', Amount: 150000 }
+  { Month: 'Nov', Amount: 4},
+  { Month: 'Dec', Amount: 7},
+  { Month: 'Jan', Amount: 8},
+  { Month: 'Feb', Amount: 10},
+  { Month: 'Mar', Amount: 9},
+  { Month: 'April', Amount: 15}
 ];
 
 /*
