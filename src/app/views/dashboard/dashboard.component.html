@@ -10,34 +10,34 @@
                 <tr>
                   <th scope="col">#</th>
                   <th scope="col">Customer Name</th>
-                  <th scope="col">Order Value</th>
+                  <th class="text-end" scope="col">Order Value (₹)</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <th>1</th>
-                  <td>Hyundai</td>
-                  <td>10,00,000</td>
+                  <td>1</td>
+                  <td>Hyundai Motor Company</td>
+                  <td class="text-end">10,00,000</td>
                 </tr>
                 <tr>
-                  <th>2</th>
-                  <td>Kia</td>
-                  <td>5,00,000</td>
+                  <td>2</td>
+                  <td>Honda Motor Company</td>
+                  <td class="text-end">5,00,000</td>
                 </tr>
                 <tr>
-                  <th>3</th>
-                  <td>Tata</td>
-                  <td>3,00,000</td>
+                  <td>3</td>
+                  <td>Tata Motors</td>
+                  <td class="text-end">3,00,000</td>
                 </tr>
                 <tr>
-                  <th>4</th>
-                  <td>Kia</td>
-                  <td>2,50,000</td>
+                  <td>4</td>
+                  <td>Kia Corporation</td>
+                  <td class="text-end">2,50,000</td>
                 </tr>
                 <tr>
-                  <th>5</th>
-                  <td>Benz</td>
-                  <td>1,00,000</td>
+                  <td>5</td>
+                  <td>Mercedes-Benz</td>                  
+                  <td class="text-end">1,00,000</td>
                 </tr>
               </tbody>
             </table>
@@ -51,9 +51,9 @@
           <ejs-chart align="center" style="width:100%; height:100%; font-family: Arial, Helvetica, sans-serif;" class="fs-6" [width]="width" [title]='title' [tooltip]="tooltip" [primaryXAxis]='primaryXAxis' [primaryYAxis]='primaryYAxis'>
             <e-series-collection>
               <e-series style="width:100%;" type='Line' xName="Month" yName="Amount" width='2' opacity=1 [dataSource]='Sales6MPlanData' [marker]='circleMarker' name="Target Amount"> </e-series>
-              <e-series style="width:100%;" type='StackingLine' xName="Month" yName="Amount" width='2' dashArray='5' [dataSource]='Sales6MOrderData' [marker]='triangleMarker' fill="black"  name="Orders Amount"> </e-series>
-              <e-series style="width:100%;" type='Line' xName="Month" yName="Amount" width='2' opacity=1 [dataSource]='Sales6MInvoiceData' [marker]='rectangleMarker'  name="Invoice Amount"> </e-series>
-              <e-series style="width:100%;" type='StackingLine' xName="Month" yName="Amount" width='2' dashArray='4' [dataSource]='Sales6MCollectionData' [marker]='diamondMarker' fill="red" name="Collection Amount"> </e-series>
+              <e-series style="width:100%;" type='Spline' xName="Month" yName="Amount" width='2' dashArray='5' [dataSource]='Sales6MOrderData' [marker]='triangleMarker' fill="black"  name="Orders Amount"> </e-series>
+              <e-series style="width:100%;" type='Column' xName="Month" yName="Amount" width='2' opacity=1 [dataSource]='Sales6MInvoiceData' [marker]='rectangleMarker'  name="Invoice Amount"> </e-series>
+              <e-series style="width:100%;" type='Column' xName="Month" yName="Amount" width='2' dashArray='4' [dataSource]='Sales6MCollectionData' [marker]='diamondMarker' fill="red" name="Collection Amount"> </e-series>
             </e-series-collection>
           </ejs-chart>
         </div>
@@ -71,52 +71,52 @@
                   <tr>
                     <th scope="col">#</th>
                     <th scope="col">Customer Name</th>
-                    <th scope="col">Total Payment (₹)</th>
-                    <th scope="col">Paid (₹)</th>
-                    <th scope="col">Overdue (₹)</th>
-                    <th scope="col">Status</th>
+                    <th scope="col" class="text-end">Total Payment (₹)</th>
+                    <th scope="col" class="text-end">Paid (₹)</th>
+                    <th scope="col" class="text-end">Overdue (₹)</th>
+                    <th scope="col" class="text-left">Status</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <th>1</th>
-                    <td>Hyundai</td>
-                    <td>10,00,000</td>
-                    <td>10,00,000</td>
-                    <td>0</td>
-                    <td><span class="badge rounded-pill bg-success">Paid</span></td>
+                    <td>1</td>
+                    <td>Hyundai Motor Company</td>
+                    <td class="text-end">10,00,000</td>
+                    <td class="text-end">10,00,000</td>
+                    <td class="text-end">0</td>
+                    <td class="text-left"><span class="badge rounded-pill bg-success">Paid</span></td>
                   </tr>
                   <tr>
-                    <th>2</th>
-                    <td>Kia</td>
-                    <td>5,00,000</td>
-                    <td>3,00,000</td>
-                    <td>2,00,000</td>
-                    <td><span class="badge rounded-pill bg-warning text-light">Pending</span></td>
+                    <td>2</td>
+                    <td>Kia Corporation</td>
+                    <td class="text-end">5,00,000</td>
+                    <td class="text-end">3,00,000</td>
+                    <td class="text-end">2,00,000</td>
+                    <td class="text-left"><span class="badge rounded-pill bg-warning text-light">Pending</span></td>
                   </tr>
                   <tr>
-                    <th>3</th>
-                    <td>Tata</td>
-                    <td>3,00,000</td>
-                    <td>1,00,000</td>
-                    <td>2,00,000</td>
-                    <td><span class="badge rounded-pill bg-warning text-light">Pending</span></td>
+                    <td>3</td>
+                    <td>Tata Motors</td>
+                    <td class="text-end">3,00,000</td>
+                    <td class="text-end">1,00,000</td>
+                    <td class="text-end">2,00,000</td>
+                    <td class="text-left"><span class="badge rounded-pill bg-warning text-light">Pending</span></td>
                   </tr>
                   <tr>
-                    <th>4</th>
-                    <td>Kia</td>
-                    <td>2,50,000</td>
-                    <td>1,00,000</td>
-                    <td>1,50,000</td>
-                    <td><span class="badge rounded-pill bg-danger">Overdue</span></td>
+                    <td>4</td>
+                    <td>Honda Motor Company</td>
+                    <td class="text-end">2,50,000</td>
+                    <td class="text-end">1,00,000</td>
+                    <td class="text-end">1,50,000</td>
+                    <td class="text-left"><span class="badge rounded-pill bg-danger">Overdue</span></td>
                   </tr>
                   <tr>
-                    <th>5</th>
-                    <td>Benz</td>
-                    <td>1,00,000</td>
-                    <td>0</td>
-                    <td>1,00,000</td>
-                    <td><span class="badge rounded-pill bg-warning text-light">Pending</span></td>
+                    <td>5</td>
+                    <td>Mercedes-Benz</td>
+                    <td class="text-end">1,00,000</td>
+                    <td class="text-end">0</td>
+                    <td class="text-end">1,00,000</td>
+                    <td class="text-left"><span class="badge rounded-pill bg-warning text-light">Pending</span></td>
                   </tr>
                 </tbody>
               </table>
@@ -134,52 +134,52 @@
                   <tr>
                     <th scope="col">#</th>
                     <th scope="col">Supplier Name</th>
-                    <th scope="col">Total Payment (₹)</th>
-                    <th scope="col">Paid (₹)</th>
-                    <th scope="col">Outstanding (₹)</th>
-                    <th scope="col">Status</th>
+                    <th scope="col" class="text-end">Total Payment (₹)</th>
+                    <th scope="col" class="text-end">Paid (₹)</th>
+                    <th scope="col" class="text-end">Outstanding (₹)</th>
+                    <th scope="col" class="text-left">Status</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <th>1</th>
+                    <td>1</td>
                     <td>ABC LTD</td>
-                    <td>10,00,000</td>
-                    <td>10,00,000</td>
-                    <td>0</td>
-                    <td><span class="badge rounded-pill bg-success">Paid</span></td>
+                    <td class="text-end">10,00,000</td>
+                    <td class="text-end">10,00,000</td>
+                    <td class="text-end">0</td>
+                    <td class="text-left"><span class="badge rounded-pill bg-success">Paid</span></td>
                   </tr>
                   <tr>
-                    <th>2</th>
+                    <td>2</td>
                     <td>Camel</td>
-                    <td>5,00,000</td>
-                    <td>1,00,000</td>
-                    <td>4,00,000</td>
-                    <td><span class="badge rounded-pill bg-warning text-light">Pending</span></td>
+                    <td class="text-end">5,00,000</td>
+                    <td class="text-end">1,00,000</td>
+                    <td class="text-end">4,00,000</td>
+                    <td class="text-left"><span class="badge rounded-pill bg-warning text-light">Pending</span></td>
                   </tr>
                   <tr>
-                    <th>3</th>
+                    <td>3</td>
                     <td>TNPL LTD</td>
-                    <td>3,00,000</td>
-                    <td>80,000</td>
-                    <td>2,20,000</td>
-                    <td><span class="badge rounded-pill bg-warning text-light">Pending</span></td>
+                    <td class="text-end">3,00,000</td>
+                    <td class="text-end">80,000</td>
+                    <td class="text-end">2,20,000</td>
+                    <td class="text-left"><span class="badge rounded-pill bg-warning text-light">Pending</span></td>
                   </tr>
                   <tr>
-                    <th>4</th>
+                    <td>4</td>
                     <td>Ajay Industries</td>
-                    <td>3,50,000</td>
-                    <td>1,00,000</td>
-                    <td>2,50,000</td>
-                    <td><span class="badge rounded-pill bg-warning text-light">Pending</span></td>
+                    <td class="text-end">3,50,000</td>
+                    <td class="text-end">1,00,000</td>
+                    <td class="text-end">2,50,000</td>
+                    <td class="text-left"><span class="badge rounded-pill bg-warning text-light">Pending</span></td>
                   </tr>
                   <tr>
-                    <th>5</th>
+                    <td>5</td>
                     <td>Ganesh Engineering</td>
-                    <td>1,00,000</td>
-                    <td>1,00,000</td>
-                    <td>0</td>
-                    <td><span class="badge rounded-pill bg-success">Paid</span></td>
+                    <td class="text-end">1,00,000</td>
+                    <td class="text-end">1,00,000</td>
+                    <td class="text-end">0</td>
+                    <td class="text-left"><span class="badge rounded-pill bg-success">Paid</span></td>
                   </tr>
                 </tbody>
               </table>
@@ -222,48 +222,15 @@
       </div>
     </div>
   </div>
-<!--
-    <div id="two" class="e-panel" data-header="Payment Collection" data-row="1" data-col="0" data-sizeX="12" data-sizeY="4">
-      <div class=" m-1 p-1">
-        <h4 class="card-title" id="traffic">Customerwise Monthly Trend (L1)</h4>
-      </div>
-      <div>
-        <ejs-pivotview #pivotview
-          id='pcsPivotView'
-          width='100%'
-          [toolbar]='toolbarOptions'
-          showFieldList='true'
-          [dataSourceSettings]=pcsDataSourceSettings>
-        </ejs-pivotview>
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <h3 class="card-title">Customer Sales & Delivered</h3>
+          <p class="card-text">Text</p>
+        </div>
       </div>
     </div>
-    <div id="two" class="e-panel" data-header="Payment Collection" data-row="2" data-col="0" data-sizeX="12" data-sizeY="4">
-      <div class=" m-1 p-1">
-        <h4 class="card-title" id="traffic">Partwise Monthly Trend(L2)</h4>
-      </div>
-      <div>
-        <ejs-pivotview #pivotview
-          id='pcsPivotView'
-          width='100%'
-          [toolbar]='toolbarOptions'
-          showFieldList='true'
-          [dataSourceSettings]=pcsDataSourceSettings>
-        </ejs-pivotview>
-      </div>
-    </div>
-    
-    <div id="three" class="e-panel" data-header="Payment Collection" data-row="3" data-col="0" data-sizeX="12" data-sizeY="4">
-      <div class=" m-1 p-1">
-        <h4 class="card-title" id="traffic">Customerwise Partnowise Delivery Trend (L3 QTY[Y])</h4> 
-      </div>
-      <div>
-        <ejs-pivotview #pivotview
-          id='pcsPivotView'
-          width='100%'
-          [toolbar]='toolbarOptions'
-          showFieldList='true'
-          [dataSourceSettings]=pcsDataSourceSettings>
-        </ejs-pivotview>
-      </div>
-    </div>-->
+  </div>
+  
 </div>

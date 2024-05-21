@@ -6,7 +6,7 @@ import { DropDownList } from '@syncfusion/ej2-angular-dropdowns';
 import { ChartSettings } from '@syncfusion/ej2-pivotview/src/pivotview/model/chartsettings';
 import { Browser, enableRipple, setStyleAttribute, prepend } from '@syncfusion/ej2-base';
 import { DashboardLayoutModule } from '@syncfusion/ej2-angular-layouts'
-import { TooltipSettingsModel, ZoomService, StackingLineSeriesService, ChartModule, DataLabelService, MultiLevelLabelService, SelectionService, CategoryService, StackingBarSeriesService, ColumnSeriesService, BarSeriesService, LineSeriesService,LegendService, TooltipService} from '@syncfusion/ej2-angular-charts'
+import { TooltipSettingsModel, ZoomService, StackingLineSeriesService, ParetoSeriesService, SplineAreaSeriesService, SplineSeriesService, StepLineSeriesService, ChartModule, DataLabelService, MultiLevelLabelService, SelectionService, CategoryService, StackingBarSeriesService, ColumnSeriesService, BarSeriesService, LineSeriesService,LegendService, TooltipService} from '@syncfusion/ej2-angular-charts'
 import {
   ButtonGroupComponent,
   CardBodyComponent,
@@ -54,12 +54,15 @@ let pcsData: IDataSet[] = pivotData;
   encapsulation: ViewEncapsulation.None,
   providers: [
     CategoryService,
-    ColumnSeriesService,
     BarSeriesService,
     LineSeriesService,
     LegendService,
     StackingBarSeriesService,
     StackingLineSeriesService,
+    SplineAreaSeriesService,
+    SplineSeriesService,
+    StepLineSeriesService,
+    ParetoSeriesService,
     NumberFormattingService,
     ZoomService,
     FieldListService,
@@ -197,9 +200,19 @@ export class DashboardComponent implements OnInit {
         } 
       };
   public title: string = 'Last 6 Months Sales';
-
+  public paretoOptions: object = {};
   ngOnInit(): void {
     this.chartData = stackData;
+    this.paretoOptions = {
+      marker: {
+        visible: true,
+        isFilled: true,
+        width: 7,
+        height: 7
+    },
+    dashArray: '3,2',
+    width: 2
+    };
     if(Browser.isDevice)
       this.width = '100%';
     console.log(`this.width = ${this.width}`)

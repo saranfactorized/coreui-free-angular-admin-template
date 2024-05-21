@@ -6,11 +6,11 @@ export const navItems: INavData[] = [
     url: '/dashboard',
     iconComponent: { name: 'cil-money' },
   },
-  {
-    name: 'Production',
-    url: '/dashboard',
-    iconComponent: { name: 'cil-speedometer' },
-  },
+  // {
+  //   name: 'Production',
+  //   url: '/dashboard',
+  //   iconComponent: { name: 'cil-speedometer' },
+  // },
   // {
   //   title: true,
   //   name: 'Theme'
@@ -181,11 +181,11 @@ export const navItems: INavData[] = [
   //     }
   //   ]
   // },
-  {
-    name: 'Charts',
-    iconComponent: { name: 'cil-chart-pie' },
-    url: '/charts'
-  },
+  // {
+  //   name: 'Charts',
+  //   iconComponent: { name: 'cil-chart-pie' },
+  //   url: '/charts'
+  // },
   // {
   //   name: 'Icons',
   //   iconComponent: { name: 'cil-star' },
